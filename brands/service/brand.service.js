@@ -2,6 +2,8 @@ import Brand from "../schemas/brand.schema.js";
 export const brandService = {
   async addBrand(data) {
     try {
+      console.log("brand");
+
       const isBrandPresent = await Brand.findOne({
         where: { brand_name: data?.brand_name },
       });
