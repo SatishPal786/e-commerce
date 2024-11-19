@@ -1,17 +1,18 @@
 import Brand from "../schemas/brand.schema.js";
 export const brandService = {
-  async addBrand(data) {
+  async addBrand(reqObject) {
     try {
       console.log("brand");
 
       const isBrandPresent = await Brand.findOne({
-        where: { brand_name: data?.brand_name },
+        where: { brand_name: reqObject?.brand_name },
       });
+
       if (isBrandPresent) {
         return { data: "Brand already exists", status: 302 };
       }
       const data = await Brand.create({
-        brand_name: data?.brand_name,
+        brand_name: reqObject?.brand_name,
       });
       if (data) {
         return { data: "Brand added sccessflly", status: 201 };
