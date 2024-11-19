@@ -1,6 +1,7 @@
 import { where } from "sequelize";
 import User from "../schemas/user.schema.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const userService = {
   async createUser(data) {
@@ -42,7 +43,13 @@ export const userService = {
             userFound.password
           );
           if (isMatchedPassword) {
-            return { data: userFound, status: 200 };
+            const token = jwt.sign(
+              { id: userFound.id, email: userFound.email },
+              process.env.JWT_SECRET,
+              { expiresIn: "1h" }
+            );
+
+            return { data: userFound, token, status: 200 };
           } else {
             return { data: "Invalid details", status: 400 };
           }
@@ -57,7 +64,6 @@ export const userService = {
   async updateuser(id, data) {
     try {
       const userFound = await User.findOne({ where: { id: id } });
-      console.log(userFound, "userFound");
 
       if (userFound) {
         const updatedUser = await User.update(data, {
