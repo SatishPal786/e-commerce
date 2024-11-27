@@ -10,6 +10,6 @@ describe("number operations", () => {
     expect(a + b).not.toBe(2);
   });
 });
-describe("number should be undefinded",()=>{
-     test()
-})
+// describe("number should be undefinded",()=>{
+//      test()
+// })

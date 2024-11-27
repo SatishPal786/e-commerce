@@ -28,10 +28,16 @@ export const brandService = {
       if (result && result.length > 0) {
         return { data: result, status: 200 };
       } else {
-        return { data: "Data not found", status: false };
+        return { data: "Data not found", status: 500 };
       }
     } catch (error) {
-      return { data: error, status: false };
+      return { data: error, status: 500 };
+    }
+  },
+  async updateBrand() {
+    try {
+    } catch (error) {
+      return { data: error, status: 500 };
     }
   },
 };
