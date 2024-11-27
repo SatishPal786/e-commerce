@@ -1,21 +1,23 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../database/connection.js";
-const Brand = sequelize.define("Brand", {
-  brand_name: {
-    type: DataTypes.STRING,
+const Order = sequelize.define("Order", {
+  user_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: "id",
+    },
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  },
+  status: {
+    type: DataTypes.ENUM("Pending", "Ordered", "Cancelled", "Completed"),
+    defaultValue: "Pending",
     allowNull: false,
   },
   isDeleted: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-  },
-  isAvailable: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-  },
 });
-export default Brand;
+export default Order;
